@@ -142,28 +142,30 @@ State evaluate_and_get_state(const Game *game)
 
 short read_move(const Game* game, int* row, int* column)
 {
-  char line[4];
+  char line[10];
   printf("Player: %c\n", (game->current_player == X ? 'X' : 'O'));
   printf("Please, enter a move as row,column: \n");
 
+  // read input and store in line
   if(!fgets(line, sizeof(line),stdin))
   {
-    // invalida input -> stop the game
+    // invalid input -> stop the game
     return -1;
   }
-  
-  // si el formato es "row,col" lo copia a los punteros
+  // if recover two integers in format "row,col", copy to the pointers
   if(sscanf(line, "%d,%d", row, column)==2)
   {
+    // DEBUG: printf("line is separated by comma\n ");
     return 1;
   }
 
-  // si el formato es con "espacio"
+  // if recover two integers in formar "row col", copy to the pointers
   if(sscanf(line, "%d %d", row, column)==2){
+    // DEBUG: printf("line is separated by space");
     return 1;
   }
-
-  printf("Invalid input. Enter two numbers separated by comma or one space: ");
+  
+  printf("Invalid input. Enter two numbers separated by comma or one space. \n");
 
   return 0; // no fue formato valido
 
@@ -190,33 +192,35 @@ int main()
 
   while(game.state == IN_PROGRESS)
   {
-    system("clear");
     print_board(&game);
     int row, column;
 
     int read = read_move(&game,&row, &column);
-
+    
     if(read == -1) 
     { 
-      printf("Finishing game. Bye!");
+      printf("Finishing game. Bye!\n");
       return 0;
     }else if(read == 0)
     {
       continue; // bad input, next loop
     }
+    
 
+
+    short place_is_ok = place(&game, row, column);
     // else 
-    if(!place(&game, row, column))
+    if(!place_is_ok)
     {
-      printf("Cell selected is %d,%d",row, column);
+      printf("Cell selected is %d,%d \n",row, column);
       // row and columns is in the bounds, but is ocuppied
-      printf("The cell selected its not EMPTY.");
+      printf("The cell selected its not EMPTY.\n");
       continue;
     }
     game.state = evaluate_and_get_state(&game);
   }
 
-  system("clear");
+  // system("clear");
   print_board(&game);
 
 
