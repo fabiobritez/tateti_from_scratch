@@ -1,5 +1,5 @@
 # tateti_from_zero
-this is an implementation of tateti from zero in c, just for fun
+this is an implementation of ta-te-ti (tic-tac-toe) inc, made from scratch just for fun
 
 ## game rules (ta-te-ti)
 
@@ -50,6 +50,7 @@ after of each movement, the state is evaluated and updated.
 
 ### game loop
 
+```c
 init a game
 
 while (state == IN_PROGRESS)
@@ -59,11 +60,32 @@ while (state == IN_PROGRESS)
     ask current player for a next movement (row, column)
     while (movement = invalid)
     
-    place mark and update counter movements.
-    evaluate and get current state
+    place mark
+    evaluate and update state
     
 update_board();
 
 print results (based on current state)
+```
 
 
+## how to run
+
+compile
+```sh
+gcc -o tateti main.c
+```
+
+run
+```sh
+./tateti
+```
+
+
+## notes
+* input format: row, column or row column (int)
+* invalid inputs are handled by asking again
+* next improvements
+    - input by a single number (1-9) mapped to coordinates
+    - single-player mode with "ai"
+    - better board display
