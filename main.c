@@ -153,13 +153,13 @@ short read_move(const Game* game, int* row, int* column)
   }
   
   // si el formato es "row,col" lo copia a los punteros
-  if(sscanf(line, "%d,%d", row, column))
+  if(sscanf(line, "%d,%d", row, column)==2)
   {
     return 1;
   }
 
   // si el formato es con "espacio"
-  if(sscanf(line, "%d %d", row, column)){
+  if(sscanf(line, "%d %d", row, column)==2){
     return 1;
   }
 
@@ -208,6 +208,7 @@ int main()
     // else 
     if(!place(&game, row, column))
     {
+      printf("Cell selected is %d,%d",row, column);
       // row and columns is in the bounds, but is ocuppied
       printf("The cell selected its not EMPTY.");
       continue;
