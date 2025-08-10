@@ -1,4 +1,4 @@
-# tateti_from_zero
+# tateti_from_scratch
 this is an implementation of ta-te-ti (tic-tac-toe) inc, made from scratch just for fun
 
 ## game rules (ta-te-ti)
